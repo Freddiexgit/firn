@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: raw data
+    schema: "bronze"
+    database: citybike_db
+    tables:
+     - name: new_york_bike_trip
+     - name: new_york_weather_data
