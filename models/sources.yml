@@ -1,0 +1,9 @@
+sources:
+  - name: bronze
+    description: bronze layer
+    schema: "bronze"
+    database: CITIBIKE_DB
+    tags:
+      - source
+    tables:
+      - name: new_york_bike_trip
