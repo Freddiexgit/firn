@@ -13,5 +13,5 @@ select
     new_york_weather:wind.speed::float wind_speed
 
 from
-    {{ source("bronze", "new_york_weather_data") }},
+    {{ source("bronze", "new_york_weather") }},
     lateral flatten(input => new_york_weather:weather) as weather
