@@ -12,14 +12,20 @@ tripduration_inseconds ,
   end_station_lat ,
   end_station_lon ,  
   bikeid ,
-  un_known  ,
   usertype ,
   birth_year ,
   gender ,
-  6371 * ACOS(
-    COS(RADIANS(start_station_lat)) * COS(RADIANS(end_station_lat)) *
-    COS(RADIANS(end_station_lon) - RADIANS(start_station_lon)) +
-    SIN(RADIANS(start_station_lat)) * SIN(RADIANS(end_station_lat))
-  ) AS trip_distance_km,
-  update_time  CURRENT_TIMESTAMP
-from {{ source("bronze", "new_york_bike_trip") }}
+  acos_input ,
+ 6371 * ACOS(LEAST(1, GREATEST(-1,acos_input)))  AS trip_distance_km,
+  CURRENT_TIMESTAMP as update_time  
+  from (
+SELECT *,
+  COS(RADIANS(TO_DOUBLE(start_station_lat))) * COS(RADIANS(TO_DOUBLE(end_station_lat))) *
+  COS(RADIANS(TO_DOUBLE(end_station_lon)) - RADIANS(TO_DOUBLE(start_station_lon))) +
+  SIN(RADIANS(TO_DOUBLE(start_station_lat))) * SIN(RADIANS(TO_DOUBLE(end_station_lat))) AS acos_input
+FROM bronze.new_york_bike_trip
+WHERE start_station_lat <> ''
+  AND start_station_lon <> ''
+  AND end_station_lat <> ''
+  AND end_station_lon <> ''
+) 
