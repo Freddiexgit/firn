@@ -1,0 +1,29 @@
+models:
+  - name: new_york_bike_trip
+    description: bike trip curated
+    columns:
+      - name:  start_station_lat
+        description: trip start lat
+        tests:
+          - string_not_empty
+  - name: new_york_bike_trip
+    description: bike trip curated
+    columns:
+      - name: start_station_lon
+        description: trip start lon
+        tests:
+          - string_not_empty
+  - name: new_york_bike_trip
+    description: bike trip curated
+    columns:
+      - name: end_station_lat
+        description: trip stop lat
+        tests:
+          - string_not_empty
+  - name: new_york_bike_trip
+    description: bike trip curated
+    columns:
+      - name: end_station_lon
+        description: trip stop lon
+        tests:
+          - string_not_empty
